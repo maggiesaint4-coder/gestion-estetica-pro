@@ -33,114 +33,97 @@ apply_custom_design()
 
 # --- 3. BASE DE DATOS DE SERVICIOS ---
 SERVICIOS = {
+    "Extensiones de Pestañas": {
+        "info": "Acepto que extensiones de pestañas sean aplicadas y / o eliminadas de mis pestañas. Antes de que mi técnico pueda realizar este procedimiento, entiendo que debo completar este acuerdo y dar mi consentimiento.",
+        "riesgos": "Irritación ocular, dolor ocular, comezón en los ojos, malestar, y en casos excepcionales infección ocular.",
+        "clausulas": [
+            "Entiendo que hay riesgos asociados con la aplicación y/o eliminación de pestañas artificiales.",
+            "Las extensiones se aplicarán según determine el técnico para no crear un peso excesivo preservando la salud natural.",
+            "Si experimento problemas, me pondré en contacto con mi técnico, retiraré las pestañas y consultaré a un médico.",
+            "Los materiales adhesivos pueden alojarse durante o después del procedimiento e irritar mis ojos.",
+            "El incumplimiento de las instrucciones de cuidado posterior puede hacer que las extensiones se caigan."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN PROTOCOLO DE *EXTENSIONES DE PESTAÑAS* 🧖‍♀️\n\n✅ No mojarlas las primeras 24-48 horas.\n✅ Cepillarlas diariamente con el cepillo limpio.\n✅ Usar solo productos de limpieza base agua (sin aceites).\n✅ Dormir boca arriba para evitar fricción.\n🚫 No frotar los ojos ni arrancar las extensiones."
+    },
     "Limpieza Facial Profunda": {
-        "desc": "Procedimiento de higiene cutánea que incluye exfoliación, extracción de comedones y alta frecuencia para purificar los poros.",
-        "riesgos": "Eritema temporal, sensibilidad, posibles brotes por purga de la piel en las siguientes 48 horas.",
-        "cuidados_wa": """✨ *TU PIEL ESTÁ IMPECABLE:*
-✅ Mantén tu funda de almohada limpia hoy.
-✅ No toques ni aprietes las zonas de extracción.
-✅ Evita el maquillaje por las próximas 12-24 horas.
-✅ Lava tu rostro con agua templada o fría.
-✅ Aplica solo la hidratación recomendada.
-🚫 *NO USAR exfoliantes por 3 días.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+        "info": "Tratamiento que a través de agua y puntas de diamante realiza una limpieza profunda, eliminando células muertas, grasa y puntos negros. Disminuye poros y mejora la textura áspera.",
+        "riesgos": "Se debe evitar baños, saunas y ejercicio tras el tratamiento. Evitar la luz solar intensa.",
+        "clausulas": [
+            "Evitar la luz solar intensa durante 2-3 días posteriores.",
+            "Uso de SPF 30 cada 2 horas si se encuentra a la intemperie.",
+            "No usar jabones ásperos, exfoliantes o maquillaje pesado inmediatamente."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UNA *LIMPIEZA FACIAL PROFUNDA* 🧖‍♀️\n\n✅ Mantén tu piel muy hidratada.\n✅ Usa protector solar cada 3 horas.\n🚫 No uses exfoliantes ni ácidos por 7 días.\n🚫 Evita el sol directo, piscinas y saunas por 48h.\n🧼 Lava tu cara con un jabón neutro suave."
     },
     "Microneedling (Dermapen)": {
-        "desc": "Inducción de colágeno mediante microagujas que perforan la epidermis para mejorar texturas, marcas de acné y líneas de expresión.",
-        "riesgos": "Inflamación leve, pequeñas costras puntuales, enrojecimiento intenso (similar a quemadura solar) por 24-48hs.",
-        "cuidados_wa": """🚨 *PROTOCOLO POST-DERMAPEN:*
-✅ Evita tocarte la cara por completo hoy.
-✅ No sudes (gym, sauna) ni te expongas al sol.
-✅ Higiene con limpiador suave pasadas las 12 horas.
-✅ Hidratación constante con *Crema Reparadora*.
-✅ Uso estricto de Protector Solar cada 3 horas.
-🚫 *NADA DE MAQUILLAJE ni ÁCIDOS por 7 días.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+        "info": "La micropunción facilita la penetración de activos a las capas profundas mediante micro-agujas que crean micro-orificios, estimulando colágeno y elastina.",
+        "riesgos": "Eritema, sensibilidad y micro-lesiones propias del proceso de reparación dérmica.",
+        "clausulas": [
+            "Los activos acceden a las capas profundas de manera rápida y efectiva.",
+            "Trata daño solar, arrugas, flacidez y cicatrices de acné.",
+            "Autorizo el control fotográfico pre y post tratamiento."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *MICRONEEDLING (DERMAPEN)* 🧖‍♀️\n\n🚫 No apliques maquillaje durante las primeras 24 horas.\n🚫 Evita el sudor excesivo (ejercicio) y el sol directo por 3 días.\n✅ Aplica solo la crema reparadora o suero indicado.\n✅ Usa protector solar SPF 50+ de forma obligatoria."
     },
     "Peeling Químico": {
-        "desc": "Aplicación de agentes químicos para la exfoliación controlada de las capas de la piel, tratando manchas y rejuvenecimiento.",
-        "riesgos": "Sensación de quemazón, descamación profusa, sensibilidad extrema y riesgo de manchas si hay exposición solar.",
-        "cuidados_wa": """🚨 *CUIDADOS POST-PEELING:*
-✅ *HIDRATACIÓN:* Crema reparadora cada 4 horas.
-✅ *PROTECCIÓN:* Solar FPS 50+ obligatorio (incluso en casa).
-✅ No arranques las pieles (deja que caigan solas).
-✅ Suspender Retinol o Glicólico por 10 días.
-🚫 *PROHIBIDO EL SOL DIRECTO por 15 días.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+        "info": "Promueve la renovación celular para obtener una piel uniforme, contraer poros, controlar acné y aclarar manchas.",
+        "riesgos": "Escozor, quemazón, rojeces, hipersensibilidad, picazón, desecamiento y descamación.",
+        "clausulas": [
+            "Los síntomas de descamación pueden durar de 24 a 72 horas o más.",
+            "Costras y escamas pueden aparecer y suelen caer tras el reposo.",
+            "Posible pérdida de sensibilidad, atrofia o edema alrededor de los ojos."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *PEELING QUÍMICO* 🧖‍♀️\n\n🚫 *IMPORTANTE:* No arranques las pieles que se estén descamando.\n✅ Hidratación extrema con la crema recomendada.\n✅ Protector solar cada 2-3 horas sin excepción.\n🚫 Evita fuentes de calor intenso (cocina, vapor, sol)."
     },
     "Fibroblast en Párpados": {
-        "desc": "Generación de arco de plasma para retracción de tejido en párpados (blefaroplastia no quirúrgica).",
-        "riesgos": "Edema (inflamación) marcado los primeros 3 días, formación de costras de carbono y sensibilidad.",
-        "cuidados_wa": """👁️ *CUIDADOS DE FIBROBLAST:*
-✅ Mantén el área tratada seca y limpia.
-✅ *IMPORTANTE:* Deja que las costras caigan solas, NO las arranques.
-✅ Usa gafas de sol oscuras para protección UV.
-✅ Duerme con la cabeza elevada para reducir la inflamación.
-🚫 *NO aplicar maquillaje ni cremas hasta que las costras caigan.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+        "info": "Retracción cutánea mediante arco de plasma. Genera micro-carbonizaciones para tensar el tejido sobrante.",
+        "riesgos": "Edema (inflamación) marcado y costras que caen entre el día 5 y 10.",
+        "clausulas": [
+            "No retirar las costras manualmente para evitar manchas permanentes.",
+            "Mantener la zona seca y sin maquillaje hasta la caída total de costras.",
+            "El resultado final se aprecia completamente a las 8-12 semanas."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *FIBROBLAST EN PÁRPADOS* 🧖‍♀️\n\n🚫 No mojes la zona tratada las primeras 48 horas.\n✅ Deja que las costras caigan solas (no las toques).\n✅ Usa gafas de sol oscuras al salir.\n✅ Aplica el antiséptico indicado con un hisopo limpio."
     },
     "Tratamiento Pieles Acneicas": {
-        "desc": "Protocolo de control sebáceo y desinfección para reducir lesiones activas de acné y prevenir cicatrices.",
-        "riesgos": "Resequedad, descamación leve y fotosensibilidad por activos bactericidas.",
-        "cuidados_wa": """🧼 *PROTOCOLO CONTROL ACNÉ:*
-✅ Lava tu rostro con el limpiador indicado mañana y noche.
-✅ *NO manipules las lesiones:* puedes causar manchas o cicatrices.
-✅ Cambia tu toalla de rostro diariamente (o usa toallas de papel).
-✅ Usa hidratante tipo Gel o 'Oil-Free'.
-🚫 *EVITA el sol directo y el calor extremo.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+        "info": "Protocolo para controlar lesiones de acné, promover la renovación celular y controlar la proliferación bacteriana.",
+        "riesgos": "Descamación, sequedad y posible brote de purga inicial.",
+        "clausulas": [
+            "No manipular ni extraer lesiones en casa para evitar cicatrices.",
+            "Los activos pueden causar escozor tolerable durante la aplicación.",
+            "Los resultados varían según estado hormonal y hábitos de higiene."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *TRATAMIENTO PARA ACNÉ* 🧖‍♀️\n\n🚫 No toques ni pellizques los granitos.\n✅ Cambia la funda de tu almohada hoy mismo.\n✅ Lava tu rostro solo con el dermolimpiador indicado.\n✅ Usa protector solar 'Oil-Free' o toque seco."
     },
-    "Plasma Rico en Plaquetas (PRP)": {
-        "desc": "Bioestimulación mediante factores de crecimiento autólogos para mejorar la calidad y tensión de la piel.",
-        "riesgos": "Pequeños hematomas en puntos de inyección e inflamación local leve.",
-        "cuidados_wa": """💉 *POST-PLASMA (PRP):*
-✅ No toques ni masajees las zonas de inyección hoy.
-✅ Evita el ejercicio físico y el sudor por 24 horas.
-✅ No apliques maquillaje ni cremas pesadas el día de hoy.
-✅ Si sientes inflamación, aplica compresas frías con suavidad.
-🚫 *EVITA el consumo de alcohol y tabaco hoy.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
-    },
-    "Drenaje Linfático Facial": {
-        "desc": "Masaje rítmico manual para estimular la eliminación de toxinas y reducir el edema facial.",
-        "riesgos": "Aumento de la diuresis (ganas de orinar) y relajación muscular.",
-        "cuidados_wa": """💆‍♀️ *POST-DRENAJE FACIAL:*
-✅ Bebe mucha agua para ayudar a eliminar las toxinas.
-✅ Evita el consumo excesivo de sal el día de hoy.
-✅ Mantén tu rostro fresco y evita productos pesados.
-✅ Descansa y permite que tu sistema linfático trabaje.
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    "Plasma Rico en Plaquetas": {
+        "info": "Aplicación de PRP obtenido mediante centrifugación de sangre propia activada con cloruro de calcio.",
+        "riesgos": "Método seguro por ser autólogo. No existe posibilidad de reacciones inmunológicas.",
+        "clausulas": [
+            "Obtención y aplicación bajo estrictas condiciones de asepsia.",
+            "Responsabilidad del paciente informar sobre su estado de salud física.",
+            "Conformidad con el alcance técnico de la infiltración."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *PLASMA RICO EN PLAQUETAS* 🧖‍♀️\n\n🚫 No laves tu cara ni apliques cremas hasta mañana.\n🚫 Evita el ejercicio y el sol directo por 24 horas.\n✅ Bebe abundante agua para mejorar los resultados.\n🚫 No tomes aspirinas o antiinflamatorios si no es necesario."
     },
     "Radiofrecuencia Facial": {
-        "desc": "Transferencia de energía electromagnética para generar calor dérmico y estimular la síntesis de colágeno.",
-        "riesgos": "Eritema leve que desaparece en pocas horas y sensación de calor interno.",
-        "cuidados_wa": """🔥 *POST-RADIOFRECUENCIA:*
-✅ Mantén tu piel profundamente hidratada.
-✅ No laves tu cara con agua muy caliente hoy.
-✅ Bebe abundante agua para favorecer la regeneración celular.
-✅ Usa protector solar FPS 50+ sin falta.
-🚫 *EVITA saunas o baños de vapor hoy.*
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+        "info": "Uso de ondas electromagnéticas para calentar la dermis profunda y estimular colágeno.",
+        "riesgos": "Eritema leve y sensación de calor interno pasajero.",
+        "clausulas": [
+            "No poseer implantes metálicos o marcapasos.",
+            "Los resultados son acumulativos y requieren varias sesiones.",
+            "Sensación de calor necesaria para la eficacia del tensado."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UNA *RADIOFRECUENCIA FACIAL* 🧖‍♀️\n\n✅ Bebe agua para mantener la hidratación térmica de la piel.\n✅ Aplica una mascarilla hidratante fría si sientes mucho calor.\n✅ Puedes retomar tu rutina de maquillaje inmediatamente.\n✅ Usa protector solar como de costumbre."
     },
-    "Masajes Reductivos": {
-        "desc": "Técnicas manuales y de maderoterapia para remover adiposidad localizada y mejorar el contorno corporal.",
-        "riesgos": "Posibles hematomas leves, sensibilidad muscular en la zona tratada y aumento de la diuresis.",
-        "cuidados_wa": """⏳ *RESULTADOS DE TU SESIÓN CORPORAL:*
-✅ Bebe al menos 2 litros de agua para eliminar toxinas.
-✅ Mantén una alimentación baja en grasas y harinas hoy.
-✅ Realiza 30 min de actividad física suave para activar el drenaje.
-✅ Si hay hematomas, aplicar gel de árnica.
-✅ Sé constante con tus sesiones para ver cambios reales.
-
-💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    "Drenaje Linfático Facial": {
+        "info": "Masaje rítmico para favorecer la eliminación de líquidos y toxinas del rostro.",
+        "riesgos": "Aumento de la diuresis y relajación profunda.",
+        "clausulas": [
+            "Técnica de presión mínima para no colapsar vasos linfáticos.",
+            "Recomendable beber agua para facilitar la depuración.",
+            "No tener procesos infecciosos o febriles activos."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *DRENAJE LINFÁTICO FACIAL* 🧖‍♀️\n\n✅ Bebe al menos 2 litros de agua hoy para eliminar toxinas.\n✅ Evita el consumo de sal en exceso para no retener líquidos.\n✅ Notarás tu rostro más deshinchado y luminoso en las próximas horas.\n🧖‍♀️ ¡Relájate y disfruta del efecto detox!"
     }
 }
 
@@ -311,6 +294,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
