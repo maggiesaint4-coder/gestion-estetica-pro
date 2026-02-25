@@ -151,9 +151,7 @@ class ConsentimientoLegal(FPDF):
         self.set_font('Arial', 'B', 11)
         self.cell(0, 10, estetica.upper(), 0, 1, 'R')
         self.ln(10)
-def limpiar_texto(texto):
-    return texto.encode('latin-1', 'ignore').decode('latin-1')
-    
+
 def generar_pdf(datos, logo_file):
     pdf = ConsentimientoLegal()
     pdf.add_page()
@@ -161,8 +159,6 @@ def generar_pdf(datos, logo_file):
     if logo_file:
         with open(tmp_logo, "wb") as f: f.write(logo_file.getbuffer())
 
-    # data = {'paciente': limpiar_texto(p_nombre), ...}
-    
     pdf.header_logo(tmp_logo if logo_file else None, datos['estetica'])
     pdf.set_font('Arial', 'B', 14)
     pdf.cell(0, 10, "CONSENTIMIENTO INFORMADO", 0, 1, 'C')
@@ -189,13 +185,13 @@ def generar_pdf(datos, logo_file):
     pdf.cell(90, 5, "Firma Paciente", 0, 0, 'C'); pdf.cell(90, 5, f"Firma {datos['estetica']}", 0, 1, 'C')
 
     if logo_file and os.path.exists(tmp_logo): os.remove(tmp_logo)
-    return pdf.output(dest='S').encode('latin-1')
+    return pdf.output(dest='S').encode('latin-1', 'ignore')
 
-# --- 5. INTERFAZ DE USUARIO ---
+# --- 5. INTERFAZ DE USUARIO (SIDEBAR) ---
 with st.sidebar:
     st.header("Configuración")
     mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'])
-    mi_centro = st.text_input("Nombre de tu Estética", "Nombre de tu estética")
+    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética")
     
     st.divider()
     if not st.session_state["es_pro"]:
@@ -210,82 +206,66 @@ with st.sidebar:
     else:
         st.success("💎 CLIENTE PREMIUM")
 
-# LÓGICA DE BLOQUEO
-if st.session_state["usos"] >= 5 and not st.session_state["autenticado"]:
+# --- 6. LÓGICA DE BLOQUEO POR USOS ---
+if st.session_state["usos"] >= 5 and not st.session_state["es_pro"]:
     st.error("⚠️ Has agotado tus 5 fichas de prueba.")
     st.subheader("🚀 Pasa al Nivel Premium")
-    st.write("Para obtener tu **Acceso Ilimitado**, sigue estos dos pasos:")
+    st.write("Para obtener tu **Acceso Ilimitado**, sigue estos pasos:")
     
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.write("**Paso 1:** Realiza el pago seguro en PayPal.")
+    c1, c2 = st.columns(2)
+    with c1:
         st.link_button("💳 Pagar en PayPal", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ")
+    with c2:
+        msg = urllib.parse.quote("Hola! Ya pagué. Envío comprobante para mi llave.")
+        st.link_button("📲 Avisar por WhatsApp", f"https://wa.me/584143451811?text={msg}")
     
+    st.stop() # Detiene la app aquí si no es pro y se acabaron los usos
+
+# --- 7. CUERPO PRINCIPAL (SOLO CARGA SI TIENE ACCESO) ---
+st.title("Gestión Estética Profesional")
+
+tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
+
+with tab1:
+    st.subheader("Generar Documento Legal")
+    col1, col2 = st.columns(2)
+    with col1:
+        nombre_p = st.text_input("Nombre del Paciente")
+        dni_p = st.text_input("DNI / Identificación")
     with col2:
-        st.write("**Paso 2:** Envía el comprobante para recibir tu llave.")
-        # Reemplaza el número con el tuyo
-        msg = urllib.parse.quote("¡Hola! Ya realicé el pago de la suscripción. Aquí te envío mi comprobante para recibir mi llave maestra.")
-        st.link_button("📲 Avisar por WhatsApp", f"https://wa.me/5491112345678?text={msg}")
-
+        servicio_p = st.selectbox("Seleccione Tratamiento", list(SERVICIOS.keys()))
+    
     st.divider()
-    
-    # Campo para poner la llave cuando tú se la entregues
-    llave_ingresada = st.text_input("Ingresa tu Llave Maestra aquí para desbloquear:", type="password")
-    if st.button("Activar mi Software"):
-        if llave_ingresada in st.secrets["claves_autorizadas"]:
-            st.session_state["autenticado"] = True
-            st.success("¡Acceso Premium activado! Ya puedes usar la app sin límites.")
-            st.rerun()
-        else:
-            st.error("Llave incorrecta. Por favor, verifica con soporte.")
-    st.stop()
-    
-    tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
+    desc_ed = st.text_area("Descripción Técnica:", value=SERVICIOS[servicio_p]["desc"])
+    riesgos_ed = st.text_area("Riesgos Informados:", value=SERVICIOS[servicio_p]["riesgos"])
 
-    with tab1:
-        st.subheader("Generar Documento Legal")
-        c1, c2 = st.columns(2)
-        with c1:
-            nombre_p = st.text_input("Nombre del Paciente")
-            dni_p = st.text_input("DNI / Identificación")
-        with c2:
-            servicio_p = st.selectbox("Seleccione Tratamiento", list(SERVICIOS.keys()))
-        
-        st.divider()
-        desc_ed = st.text_area("Descripción Técnica (Editable):", value=SERVICIOS[servicio_p]["desc"])
-        riesgos_ed = st.text_area("Riesgos Informados (Editable):", value=SERVICIOS[servicio_p]["riesgos"])
-
-        if st.button("🚀 GENERAR Y DESCARGAR PDF"):
-            if nombre_p and dni_p:
+    if st.button("🚀 GENERAR Y DESCARGAR PDF"):
+        if nombre_p and dni_p:
+            if not st.session_state["es_pro"]:
                 st.session_state["usos"] += 1
-                data_pdf = {
-                    'paciente': nombre_p, 'dni': dni_p, 'servicio': servicio_p,
-                    'estetica': mi_centro, 'desc': desc_ed, 'riesgos': riesgos_ed
-                }
-                pdf_bytes = generar_pdf(data_pdf, mi_logo)
-                st.download_button(label="⬇️ Haz clic aquí para descargar", data=pdf_bytes, file_name=f"Consentimiento_{nombre_p}.pdf")
-            else: st.warning("Por favor, completa los datos del paciente.")
+            
+            data_pdf = {
+                'paciente': nombre_p, 'dni': dni_p, 'servicio': servicio_p,
+                'estetica': mi_centro, 'desc': desc_ed, 'riesgos': riesgos_ed
+            }
+            pdf_bytes = generar_pdf(data_pdf, mi_logo)
+            st.download_button(label="⬇️ Descargar PDF", data=pdf_bytes, file_name=f"Consentimiento_{nombre_p}.pdf")
+            st.rerun()
+        else: st.warning("Por favor, completa los datos del paciente.")
 
-    with tab2:
-        st.subheader("Envío de Cuidados Posteriores")
-        
-        # CAMBIO CLAVE: Usamos 'cuidados_wa' en lugar de 'wa'
-        # Usamos .get() para evitar que la app se caiga si falta algún dato
-        detalles_cuidados = SERVICIOS[servicio_p].get('cuidados_wa', 'Consulte con su profesional.')
-        
-        texto_wa = f"TE ACABAS DE HACER UN PROTOCOLO DE *{servicio_p.upper()}* 🧖‍♀️\n\n{detalles_cuidados}"
-        
-        st.text_area("Texto para copiar:", value=texto_wa, height=300)
-        
-        url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
-        st.link_button("🟢 Compartir por WhatsApp", url_final)
+with tab2:
+    st.subheader("Envío de Cuidados Posteriores")
+    detalles_cuidados = SERVICIOS[servicio_p].get('cuidados_wa', 'Consulte con su profesional.')
+    texto_wa = f"TE ACABAS DE HACER UN PROTOCOLO DE *{servicio_p.upper()}* 🧖‍♀️\n\n{detalles_cuidados}"
+    st.text_area("Texto para copiar:", value=texto_wa, height=300)
+    
+    url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
+    st.link_button("🟢 Compartir por WhatsApp", url_final)
 
 with st.sidebar:
     st.divider()
-    st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
+    st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
-
 
 
 
