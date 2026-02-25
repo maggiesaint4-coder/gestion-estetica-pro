@@ -213,21 +213,34 @@ with st.sidebar:
 # LÓGICA DE BLOQUEO
 if st.session_state["usos"] >= 5 and not st.session_state["autenticado"]:
     st.error("⚠️ Has agotado tus 5 fichas de prueba.")
-    st.write("Para seguir generando fichas ilimitadas y profesionalizar tu estética, adquiere tu suscripción:")
-    st.link_button("💳 Pagar Suscripción en PayPal", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ")
-    st.stop() # Esto detiene la app para que no puedan seguir
+    st.subheader("🚀 Pasa al Nivel Premium")
+    st.write("Para obtener tu **Acceso Ilimitado**, sigue estos dos pasos:")
     
-    # Botón de pago directo a PayPal
-st.sidebar.divider() # Añade una línea divisoria para separar
-st.sidebar.markdown("### 💎 Acceso Premium")
-st.sidebar.link_button(
-    "🚀 Adquirir Suscripción Ilimitada", 
-    "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ",
-    use_container_width=True, # Hace que el botón ocupe todo el ancho de la barra
-    type="primary" # Lo pone en color de resalte (generalmente rojo o naranja según tu tema)
-)
-st.sidebar.caption("Pago seguro procesado por PayPal")
-else:
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.write("**Paso 1:** Realiza el pago seguro en PayPal.")
+        st.link_button("💳 Pagar en PayPal", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ")
+    
+    with col2:
+        st.write("**Paso 2:** Envía el comprobante para recibir tu llave.")
+        # Reemplaza el número con el tuyo
+        msg = urllib.parse.quote("¡Hola! Ya realicé el pago de la suscripción. Aquí te envío mi comprobante para recibir mi llave maestra.")
+        st.link_button("📲 Avisar por WhatsApp", f"https://wa.me/5491112345678?text={msg}")
+
+    st.divider()
+    
+    # Campo para poner la llave cuando tú se la entregues
+    llave_ingresada = st.text_input("Ingresa tu Llave Maestra aquí para desbloquear:", type="password")
+    if st.button("Activar mi Software"):
+        if llave_ingresada in st.secrets["claves_autorizadas"]:
+            st.session_state["autenticado"] = True
+            st.success("¡Acceso Premium activado! Ya puedes usar la app sin límites.")
+            st.rerun()
+        else:
+            st.error("Llave incorrecta. Por favor, verifica con soporte.")
+    st.stop()
+    
     tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
 
     with tab1:
@@ -272,6 +285,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
