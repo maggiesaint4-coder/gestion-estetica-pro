@@ -5,7 +5,7 @@ import urllib.parse
 import os
 
 # --- 1. SEGURIDAD Y LLAVE MAESTRA ---
-CLAVES_PRO = ["PREMIUM2025", "ADMIN_ESTETICA", "PRO_USER"]
+CLAVES_PRO = st.secrets["claves_autorizadas"]
 
 if "usos" not in st.session_state:
     st.session_state["usos"] = 0
@@ -62,13 +62,17 @@ class ConsentimientoLegal(FPDF):
         self.set_font('Arial', 'B', 11)
         self.cell(0, 10, estetica.upper(), 0, 1, 'R')
         self.ln(10)
-
+def limpiar_texto(texto):
+    return texto.encode('latin-1', 'ignore').decode('latin-1')
+    
 def generar_pdf(datos, logo_file):
     pdf = ConsentimientoLegal()
     pdf.add_page()
     tmp_logo = "logo_temp.png"
     if logo_file:
         with open(tmp_logo, "wb") as f: f.write(logo_file.getbuffer())
+
+    # data = {'paciente': limpiar_texto(p_nombre), ...}
     
     pdf.header_logo(tmp_logo if logo_file else None, datos['estetica'])
     pdf.set_font('Arial', 'B', 14)
@@ -155,4 +159,5 @@ else:
         st.text_area("Texto para copiar:", value=texto_wa, height=300)
         
         url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
+
         st.link_button("🟢 Compartir por WhatsApp", url_final)
