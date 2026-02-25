@@ -34,94 +34,94 @@ apply_custom_design()
 # --- 3. BASE DE DATOS DE SERVICIOS ---
 SERVICIOS = {
     "Extensiones de Pestañas": {
-        "info": "Acepto que extensiones de pestañas sean aplicadas y / o eliminadas de mis pestañas. Antes de que mi técnico pueda realizar este procedimiento, entiendo que debo completar este acuerdo y dar mi consentimiento.",
+        "desc": "Acepto que extensiones de pestañas sean aplicadas y / o eliminadas de mis pestañas. Antes de que mi técnico calificado en pestañas profesionales pueda realizar este procedimiento, entiendo que debo completar este acuerdo y dar mi consentimiento.",
         "riesgos": "Irritación ocular, dolor ocular, comezón en los ojos, malestar, y en casos excepcionales infección ocular.",
         "clausulas": [
             "Entiendo que hay riesgos asociados con la aplicación y/o eliminación de pestañas artificiales.",
             "Las extensiones se aplicarán según determine el técnico para no crear un peso excesivo preservando la salud natural.",
-            "Si experimento problemas, me pondré en contacto con mi técnico, retiraré las pestañas y consultaré a un médico.",
+            "Si experimento problemas, me pondré en contacto con mi técnico para el retiro y consultaré a un médico por mi cuenta.",
             "Los materiales adhesivos pueden alojarse durante o después del procedimiento e irritar mis ojos.",
             "El incumplimiento de las instrucciones de cuidado posterior puede hacer que las extensiones se caigan."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UN PROTOCOLO DE *EXTENSIONES DE PESTAÑAS* 🧖‍♀️\n\n✅ No mojarlas las primeras 24-48 horas.\n✅ Cepillarlas diariamente con el cepillo limpio.\n✅ Usar solo productos de limpieza base agua (sin aceites).\n✅ Dormir boca arriba para evitar fricción.\n🚫 No frotar los ojos ni arrancar las extensiones."
     },
     "Limpieza Facial Profunda": {
-        "info": "Tratamiento que a través de agua y puntas de diamante realiza una limpieza profunda, eliminando células muertas, grasa y puntos negros. Disminuye poros y mejora la textura áspera.",
-        "riesgos": "Se debe evitar baños, saunas y ejercicio tras el tratamiento. Evitar la luz solar intensa.",
+        "desc": "Tratamiento que a través de agua y puntas de diamante realiza una limpieza profunda, eliminando células muertas, grasa y puntos negros acumulados. Disminuye el tamaño de los poros y mejora la textura áspera del rostro.",
+        "riesgos": "Se debe evitar baños, saunas y ejercicio tras el tratamiento. Evitar la luz solar intensa durante 2-3 días posteriores.",
         "clausulas": [
-            "Evitar la luz solar intensa durante 2-3 días posteriores.",
+            "Se me ha informado los cuidados necesarios posteriores al procedimiento.",
             "Uso de SPF 30 cada 2 horas si se encuentra a la intemperie.",
             "No usar jabones ásperos, exfoliantes o maquillaje pesado inmediatamente."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UNA *LIMPIEZA FACIAL PROFUNDA* 🧖‍♀️\n\n✅ Mantén tu piel muy hidratada.\n✅ Usa protector solar cada 3 horas.\n🚫 No uses exfoliantes ni ácidos por 7 días.\n🚫 Evita el sol directo, piscinas y saunas por 48h.\n🧼 Lava tu cara con un jabón neutro suave."
     },
     "Microneedling (Dermapen)": {
-        "info": "La micropunción facilita la penetración de activos a las capas profundas mediante micro-agujas que crean micro-orificios, estimulando colágeno y elastina.",
-        "riesgos": "Eritema, sensibilidad y micro-lesiones propias del proceso de reparación dérmica.",
+        "desc": "La micropunción es un procedimiento efectivo que va a facilitar la penetración de activos a las capas más profundas de la piel mediante micro-agujas que crean micro-orificios que actúan a modo de túneles.",
+        "riesgos": "Las microlesiones producidas favorecen la reparación de la matriz dérmica, estimulando la producción de colágeno y elastina.",
         "clausulas": [
             "Los activos acceden a las capas profundas de manera rápida y efectiva.",
-            "Trata daño solar, arrugas, flacidez y cicatrices de acné.",
-            "Autorizo el control fotográfico pre y post tratamiento."
+            "Trata daño por exposición solar, arrugas, flacidez y cicatrices de acné o estrías.",
+            "Autorizo el control fotográfico pre y post tratamiento con finalidad de control evolutivo."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UN *MICRONEEDLING (DERMAPEN)* 🧖‍♀️\n\n🚫 No apliques maquillaje durante las primeras 24 horas.\n🚫 Evita el sudor excesivo (ejercicio) y el sol directo por 3 días.\n✅ Aplica solo la crema reparadora o suero indicado.\n✅ Usa protector solar SPF 50+ de forma obligatoria."
     },
     "Peeling Químico": {
-        "info": "Promueve la renovación celular para obtener una piel uniforme, contraer poros, controlar acné y aclarar manchas.",
-        "riesgos": "Escozor, quemazón, rojeces, hipersensibilidad, picazón, desecamiento y descamación.",
+        "desc": "La finalidad del peeling es promover la renovación celular y así obtener una piel más uniforme y brillante, ayudándonos a contraer poros, controlar lesiones de acné y aclarar manchas.",
+        "riesgos": "Escozor, quemazón, rojeces, hipersensibilidad, picazón, desecamiento y descamación. Es lo que se espera ya que la piel reacciona al químico.",
         "clausulas": [
-            "Los síntomas de descamación pueden durar de 24 a 72 horas o más.",
+            "Los síntomas pueden durar de 24 a 72 horas o incluso más tiempo según el tipo de piel.",
             "Costras y escamas pueden aparecer y suelen caer tras el reposo.",
-            "Posible pérdida de sensibilidad, atrofia o edema alrededor de los ojos."
+            "Riesgo de cambios en la textura de la piel, pérdida de sensibilidad o edema alrededor de los ojos."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UN *PEELING QUÍMICO* 🧖‍♀️\n\n🚫 *IMPORTANTE:* No arranques las pieles que se estén descamando.\n✅ Hidratación extrema con la crema recomendada.\n✅ Protector solar cada 2-3 horas sin excepción.\n🚫 Evita fuentes de calor intenso (cocina, vapor, sol)."
     },
-    "Fibroblast en Párpados": {
-        "info": "Retracción cutánea mediante arco de plasma. Genera micro-carbonizaciones para tensar el tejido sobrante.",
-        "riesgos": "Edema (inflamación) marcado y costras que caen entre el día 5 y 10.",
+    "Plasma Rico en Plaquetas": {
+        "desc": "Consiste en la aplicación de PRP local (intradérmica, subdérmica o tópica). Se realiza una extracción sanguínea previa que se centrifuga para separar el plasma con plaquetas.",
+        "riesgos": "Método seguro por ser autólogo. No existe posibilidad de reacciones inmunológicas. Se realiza bajo estrictas condiciones de asepsia.",
         "clausulas": [
-            "No retirar las costras manualmente para evitar manchas permanentes.",
-            "Mantener la zona seca y sin maquillaje hasta la caída total de costras.",
+            "La fracción de plasma es activada con cloruro de calcio al 10%.",
+            "La aplicación minimiza el riesgo de contaminación e infección.",
+            "Responsabilidad del paciente informar sobre su estado de salud física y enfermedades conocidas."
+        ],
+        "cuidados_wa": "TE ACABAS DE HACER UN *PLASMA RICO EN PLAQUETAS* 🧖‍♀️\n\n🚫 No laves tu cara ni apliques cremas hasta mañana.\n🚫 Evita el ejercicio y el sol directo por 24 horas.\n✅ Bebe abundante agua para mejorar los resultados.\n🚫 No tomes aspirinas o antiinflamatorios si no es necesario."
+    },
+    "Fibroblast en Párpados": {
+        "desc": "Procedimiento de retracción cutánea mediante arco de plasma. Genera micro-carbonizaciones controladas para tensar el tejido y tratar la flacidez sin cirugía.",
+        "riesgos": "Inflamación marcada (edema) y formación de costras que caen entre el día 5 y 10.",
+        "clausulas": [
+            "No retirar las costras manualmente para evitar manchas o cicatrices.",
+            "Mantener la zona seca y sin maquillaje hasta la caída total de las costras.",
             "El resultado final se aprecia completamente a las 8-12 semanas."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UN *FIBROBLAST EN PÁRPADOS* 🧖‍♀️\n\n🚫 No mojes la zona tratada las primeras 48 horas.\n✅ Deja que las costras caigan solas (no las toques).\n✅ Usa gafas de sol oscuras al salir.\n✅ Aplica el antiséptico indicado con un hisopo limpio."
     },
     "Tratamiento Pieles Acneicas": {
-        "info": "Protocolo para controlar lesiones de acné, promover la renovación celular y controlar la proliferación bacteriana.",
-        "riesgos": "Descamación, sequedad y posible brote de purga inicial.",
+        "desc": "Protocolo para controlar lesiones de acné, promover la renovación celular y controlar la proliferación bacteriana en la piel.",
+        "riesgos": "Descamación, sequedad y posible brote de purga inicial durante la regeneración.",
         "clausulas": [
-            "No manipular ni extraer lesiones en casa para evitar cicatrices.",
+            "No manipular ni extraer lesiones en casa para evitar infecciones.",
             "Los activos pueden causar escozor tolerable durante la aplicación.",
-            "Los resultados varían según estado hormonal y hábitos de higiene."
+            "Es responsabilidad del paciente informar sobre su salud y hábitos de higiene."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UN *TRATAMIENTO PARA ACNÉ* 🧖‍♀️\n\n🚫 No toques ni pellizques los granitos.\n✅ Cambia la funda de tu almohada hoy mismo.\n✅ Lava tu rostro solo con el dermolimpiador indicado.\n✅ Usa protector solar 'Oil-Free' o toque seco."
     },
-    "Plasma Rico en Plaquetas": {
-        "info": "Aplicación de PRP obtenido mediante centrifugación de sangre propia activada con cloruro de calcio.",
-        "riesgos": "Método seguro por ser autólogo. No existe posibilidad de reacciones inmunológicas.",
-        "clausulas": [
-            "Obtención y aplicación bajo estrictas condiciones de asepsia.",
-            "Responsabilidad del paciente informar sobre su estado de salud física.",
-            "Conformidad con el alcance técnico de la infiltración."
-        ],
-        "cuidados_wa": "TE ACABAS DE HACER UN *PLASMA RICO EN PLAQUETAS* 🧖‍♀️\n\n🚫 No laves tu cara ni apliques cremas hasta mañana.\n🚫 Evita el ejercicio y el sol directo por 24 horas.\n✅ Bebe abundante agua para mejorar los resultados.\n🚫 No tomes aspirinas o antiinflamatorios si no es necesario."
-    },
     "Radiofrecuencia Facial": {
-        "info": "Uso de ondas electromagnéticas para calentar la dermis profunda y estimular colágeno.",
-        "riesgos": "Eritema leve y sensación de calor interno pasajero.",
+        "desc": "Uso de ondas electromagnéticas para calentar la dermis profunda y estimular la producción de nuevo colágeno y elastina.",
+        "riesgos": "Eritema leve y sensación de calor interno pasajero tras la sesión.",
         "clausulas": [
-            "No poseer implantes metálicos o marcapasos.",
-            "Los resultados son acumulativos y requieren varias sesiones.",
-            "Sensación de calor necesaria para la eficacia del tensado."
+            "No poseer implantes metálicos, marcapasos o dispositivos electrónicos.",
+            "Los resultados son acumulativos y requieren constancia en las sesiones.",
+            "La sensación de calor es necesaria para la eficacia del tensado térmico."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UNA *RADIOFRECUENCIA FACIAL* 🧖‍♀️\n\n✅ Bebe agua para mantener la hidratación térmica de la piel.\n✅ Aplica una mascarilla hidratante fría si sientes mucho calor.\n✅ Puedes retomar tu rutina de maquillaje inmediatamente.\n✅ Usa protector solar como de costumbre."
     },
     "Drenaje Linfático Facial": {
-        "info": "Masaje rítmico para favorecer la eliminación de líquidos y toxinas del rostro.",
-        "riesgos": "Aumento de la diuresis y relajación profunda.",
+        "desc": "Masaje rítmico manual para favorecer la eliminación de líquidos, edemas y toxinas acumuladas en el rostro.",
+        "riesgos": "Aumento de la diuresis (necesidad de orinar) y relajación profunda del sistema nervioso.",
         "clausulas": [
-            "Técnica de presión mínima para no colapsar vasos linfáticos.",
-            "Recomendable beber agua para facilitar la depuración.",
-            "No tener procesos infecciosos o febriles activos."
+            "Técnica de presión mínima para no colapsar los vasos linfáticos.",
+            "Recomendable beber agua para facilitar la depuración del organismo.",
+            "No tener procesos infecciosos o febriles activos en el momento del masaje."
         ],
         "cuidados_wa": "TE ACABAS DE HACER UN *DRENAJE LINFÁTICO FACIAL* 🧖‍♀️\n\n✅ Bebe al menos 2 litros de agua hoy para eliminar toxinas.\n✅ Evita el consumo de sal en exceso para no retener líquidos.\n✅ Notarás tu rostro más deshinchado y luminoso en las próximas horas.\n🧖‍♀️ ¡Relájate y disfruta del efecto detox!"
     }
@@ -294,6 +294,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
