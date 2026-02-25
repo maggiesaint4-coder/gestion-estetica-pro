@@ -161,3 +161,9 @@ else:
         url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
 
         st.link_button("🟢 Compartir por WhatsApp", url_final)
+
+with st.sidebar:
+    st.divider()
+    st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
+    st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
