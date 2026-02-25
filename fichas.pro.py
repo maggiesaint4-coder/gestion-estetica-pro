@@ -147,42 +147,75 @@ SERVICIOS = {
 # --- 4. CLASE PDF LEGAL ---
 class ConsentimientoLegal(FPDF):
     def header_logo(self, logo, estetica):
-        if logo: self.image(logo, 10, 8, 30)
-        self.set_font('Arial', 'B', 11)
-        self.cell(0, 10, estetica.upper(), 0, 1, 'R')
-        self.ln(10)
+        if logo:
+            # Posiciona el logo a la izquierda como en el adjunto
+            self.image(logo, 10, 10, 33) 
+        self.set_font('Arial', 'B', 12)
+        # Nombre del SPA centrado o a la derecha según el logo
+        self.cell(0, 10, estetica.upper(), 0, 1, 'R') 
+        self.ln(15)
 
 def generar_pdf(datos, logo_file):
     pdf = ConsentimientoLegal()
     pdf.add_page()
+    
+    # Manejo de logo temporal
     tmp_logo = "logo_temp.png"
     if logo_file:
         with open(tmp_logo, "wb") as f: f.write(logo_file.getbuffer())
 
     pdf.header_logo(tmp_logo if logo_file else None, datos['estetica'])
-    pdf.set_font('Arial', 'B', 14)
-    pdf.cell(0, 10, "CONSENTIMIENTO INFORMADO", 0, 1, 'C')
-    pdf.ln(5)
     
-    pdf.set_font('Arial', '', 10)
-    pdf.multi_cell(0, 5, f"Yo, {datos['paciente']}, con identificación {datos['dni']}, declaro estar en pleno uso de mis facultades para autorizar el tratamiento de {datos['servicio']} en {datos['estetica']}.")
-    pdf.ln(3)
+    # Título Profesional [cite: 2]
+    pdf.set_font('Arial', 'B', 14)
+    pdf.cell(0, 10, f"CONSENTIMIENTO INFORMADO PARA {datos['servicio'].upper()}", 0, 1, 'C')
+    pdf.ln(5)
 
-    secciones = [
-        ("Descripción del Servicio:", datos['desc']),
-        ("Riesgos y Complicaciones:", datos['riesgos']),
-        ("Compromiso del Paciente:", "Acepto seguir estrictamente las pautas y recomendaciones posteriores para maximizar resultados y minimizar riesgos."),
-        ("Consentimiento para Fotografías:", "Autorizo la toma de fotografías de mi piel para documentar el progreso del tratamiento."),
-        ("Retiro del Consentimiento:", "Soy consciente de que tengo el derecho de retirar mi consentimiento en cualquier momento.")
+    # Bloque de Información General [cite: 4, 5]
+    pdf.set_font('Arial', 'B', 10)
+    pdf.cell(0, 8, f"Paciente: {datos['paciente']}   |   Identificación: {datos['dni']}   |   Fecha: {datetime.date.today()}", 1, 1, 'L')
+    pdf.ln(5)
+
+    # Cláusulas de Compromiso y Aceptación (Texto más técnico) [cite: 9, 11, 17, 18]
+    pdf.set_font('Arial', 'B', 10)
+    pdf.cell(0, 6, "DECLARACIONES Y COMPROMISOS:", 0, 1)
+    pdf.set_font('Arial', '', 9)
+    
+    declaraciones = [
+        f"1. Acepto que el procedimiento de {datos['servicio']} sea aplicado siguiendo los protocolos técnicos de seguridad.",
+        "2. Entiendo que existen riesgos asociados, incluyendo irritación, malestar o reacciones alérgicas.",
+        "3. Me comprometo a contactar al técnico y consultar a un médico por mi cuenta si experimento problemas graves.",
+        "4. He comunicado todas mis condiciones médicas conocidas y es mi responsabilidad mantener al profesional informado.",
+        "5. Autorizo el control fotográfico pre y post tratamiento con fines de valoración científica y seguimiento evolutivo."
     ]
+    
+    for item in declaraciones:
+        pdf.multi_cell(0, 5, item)
+        pdf.ln(1)
 
-    for tit, cont in secciones:
-        pdf.set_font('Arial', 'B', 10); pdf.cell(0, 6, tit, 0, 1)
-        pdf.set_font('Arial', '', 10); pdf.multi_cell(0, 5, cont); pdf.ln(2)
+    # Detalles Específicos del Servicio
+    pdf.ln(2)
+    pdf.set_font('Arial', 'B', 10); pdf.cell(0, 6, "DESCRIPCIÓN TÉCNICA:", 0, 1)
+    pdf.set_font('Arial', '', 9); pdf.multi_cell(0, 5, datos['desc'])
+    
+    pdf.ln(2)
+    pdf.set_font('Arial', 'B', 10); pdf.cell(0, 6, "RIESGOS INFORMADOS:", 0, 1)
+    pdf.set_font('Arial', '', 9); pdf.multi_cell(0, 5, datos['riesgos'])
 
-    pdf.ln(15)
-    pdf.cell(90, 10, "____________________", 0, 0, 'C'); pdf.cell(90, 10, "____________________", 0, 1, 'C')
-    pdf.cell(90, 5, "Firma Paciente", 0, 0, 'C'); pdf.cell(90, 5, f"Firma {datos['estetica']}", 0, 1, 'C')
+    # Advertencia Final [cite: 23]
+    pdf.ln(5)
+    pdf.set_font('Arial', 'B', 9)
+    pdf.set_text_color(200, 0, 0) # Color rojo para advertencia
+    pdf.multi_cell(0, 5, "ES IMPORTANTE QUE LEA CUIDADOSAMENTE ESTA INFORMACIÓN Y HAYA ACLARADO TODAS SUS DUDAS ANTES DE FIRMAR.")
+    pdf.set_text_color(0, 0, 0)
+
+    # Firmas [cite: 24, 25]
+    pdf.ln(20)
+    pdf.cell(90, 10, "__________________________", 0, 0, 'C')
+    pdf.cell(90, 10, "__________________________", 0, 1, 'C')
+    pdf.set_font('Arial', 'B', 9)
+    pdf.cell(90, 5, "Firma del Paciente", 0, 0, 'C')
+    pdf.cell(90, 5, "Firma del Responsable / Técnico", 0, 1, 'C')
 
     if logo_file and os.path.exists(tmp_logo): os.remove(tmp_logo)
     return pdf.output(dest='S').encode('latin-1', 'ignore')
@@ -278,6 +311,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
