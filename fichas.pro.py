@@ -214,7 +214,17 @@ with st.sidebar:
 if not st.session_state["es_pro"] and st.session_state["usos"] >= 5:
     st.error("🚨 Has alcanzado el límite de 5 usos gratuitos.")
     st.info("Para seguir utilizando la herramienta, contacta con soporte para adquirir tu suscripción.")
-    st.link_button("Adquirir Suscripción", "https://tu-link-de-pago.com")
+    
+    # Botón de pago directo a PayPal
+st.sidebar.divider() # Añade una línea divisoria para separar
+st.sidebar.markdown("### 💎 Acceso Premium")
+st.sidebar.link_button(
+    "🚀 Adquirir Suscripción Ilimitada", 
+    "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ",
+    use_container_width=True, # Hace que el botón ocupe todo el ancho de la barra
+    type="primary" # Lo pone en color de resalte (generalmente rojo o naranja según tu tema)
+)
+st.sidebar.caption("Pago seguro procesado por PayPal")
 else:
     tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
 
@@ -260,6 +270,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
