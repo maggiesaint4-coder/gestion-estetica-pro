@@ -219,9 +219,9 @@ if st.session_state["usos"] >= 5 and not st.session_state["es_pro"]:
         msg = urllib.parse.quote("Hola! Ya pagué. Envío comprobante para mi llave.")
         st.link_button("📲 Avisar por WhatsApp", f"https://wa.me/584143451811?text={msg}")
     
-    st.stop() # Detiene la app aquí si no es pro y se acabaron los usos
+    st.stop() 
 
-# --- 7. CUERPO PRINCIPAL (SOLO CARGA SI TIENE ACCESO) ---
+# --- 7. CUERPO PRINCIPAL ---
 st.title("Gestión Estética Profesional")
 
 tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
@@ -239,19 +239,31 @@ with tab1:
     desc_ed = st.text_area("Descripción Técnica:", value=SERVICIOS[servicio_p]["desc"])
     riesgos_ed = st.text_area("Riesgos Informados:", value=SERVICIOS[servicio_p]["riesgos"])
 
-    if st.button("🚀 GENERAR Y DESCARGAR PDF"):
+    # LÓGICA DE GENERACIÓN MEJORADA
+    if st.button("🚀 PREPARAR DOCUMENTO"):
         if nombre_p and dni_p:
-            if not st.session_state["es_pro"]:
-                st.session_state["usos"] += 1
-            
             data_pdf = {
                 'paciente': nombre_p, 'dni': dni_p, 'servicio': servicio_p,
                 'estetica': mi_centro, 'desc': desc_ed, 'riesgos': riesgos_ed
             }
-            pdf_bytes = generar_pdf(data_pdf, mi_logo)
-            st.download_button(label="⬇️ Descargar PDF", data=pdf_bytes, file_name=f"Consentimiento_{nombre_p}.pdf")
-            st.rerun()
-        else: st.warning("Por favor, completa los datos del paciente.")
+            try:
+                pdf_bytes = generar_pdf(data_pdf, mi_logo)
+                
+                # Aumentar contador de uso solo si no es PRO
+                if not st.session_state["es_pro"]:
+                    st.session_state["usos"] += 1
+                
+                st.success(f"✅ Documento para {nombre_p} listo.")
+                st.download_button(
+                    label="⬇️ DESCARGAR PDF AHORA", 
+                    data=pdf_bytes, 
+                    file_name=f"Consentimiento_{nombre_p}.pdf",
+                    mime="application/pdf"
+                )
+            except Exception as e:
+                st.error(f"Error al generar PDF: {e}")
+        else: 
+            st.warning("⚠️ Completa el nombre y DNI del paciente.")
 
 with tab2:
     st.subheader("Envío de Cuidados Posteriores")
@@ -266,6 +278,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
