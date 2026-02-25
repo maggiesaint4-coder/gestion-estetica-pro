@@ -211,9 +211,11 @@ with st.sidebar:
         st.success("💎 CLIENTE PREMIUM")
 
 # LÓGICA DE BLOQUEO
-if not st.session_state["es_pro"] and st.session_state["usos"] >= 5:
-    st.error("🚨 Has alcanzado el límite de 5 usos gratuitos.")
-    st.info("Para seguir utilizando la herramienta, contacta con soporte para adquirir tu suscripción.")
+if st.session_state["usos"] >= 5 and not st.session_state["autenticado"]:
+    st.error("⚠️ Has agotado tus 5 fichas de prueba.")
+    st.write("Para seguir generando fichas ilimitadas y profesionalizar tu estética, adquiere tu suscripción:")
+    st.link_button("💳 Pagar Suscripción en PayPal", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ")
+    st.stop() # Esto detiene la app para que no puedan seguir
     
     # Botón de pago directo a PayPal
 st.sidebar.divider() # Añade una línea divisoria para separar
@@ -270,6 +272,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
