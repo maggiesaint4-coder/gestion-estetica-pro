@@ -36,22 +36,111 @@ SERVICIOS = {
     "Limpieza Facial Profunda": {
         "desc": "Procedimiento de higiene cutánea que incluye exfoliación, extracción de comedones y alta frecuencia para purificar los poros.",
         "riesgos": "Eritema temporal, sensibilidad, posibles brotes por purga de la piel en las siguientes 48 horas.",
-        "wa": "✨ *TU PIEL ESTÁ IMPECABLE:*\n✅ Mantén tu funda de almohada limpia hoy.\n✅ No toques ni aprietes las zonas de extracción.\n✅ Evita el maquillaje por las próximas 12-24 horas.\n✅ Lava tu rostro con agua templada o fría.\n✅ Aplica solo la hidratación recomendada.\n🚫 *NO USAR exfoliantes por 3 días.*"
+        "cuidados_wa": """✨ *TU PIEL ESTÁ IMPECABLE:*
+✅ Mantén tu funda de almohada limpia hoy.
+✅ No toques ni aprietes las zonas de extracción.
+✅ Evita el maquillaje por las próximas 12-24 horas.
+✅ Lava tu rostro con agua templada o fría.
+✅ Aplica solo la hidratación recomendada.
+🚫 *NO USAR exfoliantes por 3 días.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
     },
-    "Dermapen - Micropunción": {
+    "Microneedling (Dermapen)": {
         "desc": "Inducción de colágeno mediante microagujas que perforan la epidermis para mejorar texturas, marcas de acné y líneas de expresión.",
         "riesgos": "Inflamación leve, pequeñas costras puntuales, enrojecimiento intenso (similar a quemadura solar) por 24-48hs.",
-        "wa": "🚨 *PROTOCOLO POST-DERMAPEN:*\n✅ Evita tocarte la cara por completo hoy.\n✅ No sudes (gym, sauna) ni te expongas al sol.\n✅ Higiene con limpiador suave pasadas las 12 horas.\n✅ Hidratación constante con *Crema Reparadora*.\n✅ Uso estricto de Protector Solar cada 3 horas.\n🚫 *NADA DE MAQUILLAJE ni ÁCIDOS por 7 días.*"
+        "cuidados_wa": """🚨 *PROTOCOLO POST-DERMAPEN:*
+✅ Evita tocarte la cara por completo hoy.
+✅ No sudes (gym, sauna) ni te expongas al sol.
+✅ Higiene con limpiador suave pasadas las 12 horas.
+✅ Hidratación constante con *Crema Reparadora*.
+✅ Uso estricto de Protector Solar cada 3 horas.
+🚫 *NADA DE MAQUILLAJE ni ÁCIDOS por 7 días.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
     },
     "Peeling Químico": {
         "desc": "Aplicación de agentes químicos para la exfoliación controlada de las capas de la piel, tratando manchas y rejuvenecimiento.",
         "riesgos": "Sensación de quemazón, descamación profusa, sensibilidad extrema y riesgo de manchas si hay exposición solar.",
-        "wa": "🚨 *CUIDADOS POST-PEELING:*\n✅ *HIDRATACIÓN:* Crema reparadora cada 4 horas.\n✅ *PROTECCIÓN:* Solar FPS 50+ obligatorio (incluso en casa).\n✅ No arranques las pieles (deja que caigan solas).\n✅ Suspender Retinol o Glicólico por 10 días.\n🚫 *PROHIBIDO EL SOL DIRECTO por 15 días.*"
+        "cuidados_wa": """🚨 *CUIDADOS POST-PEELING:*
+✅ *HIDRATACIÓN:* Crema reparadora cada 4 horas.
+✅ *PROTECCIÓN:* Solar FPS 50+ obligatorio (incluso en casa).
+✅ No arranques las pieles (deja que caigan solas).
+✅ Suspender Retinol o Glicólico por 10 días.
+🚫 *PROHIBIDO EL SOL DIRECTO por 15 días.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    },
+    "Fibroblast en Párpados": {
+        "desc": "Generación de arco de plasma para retracción de tejido en párpados (blefaroplastia no quirúrgica).",
+        "riesgos": "Edema (inflamación) marcado los primeros 3 días, formación de costras de carbono y sensibilidad.",
+        "cuidados_wa": """👁️ *CUIDADOS DE FIBROBLAST:*
+✅ Mantén el área tratada seca y limpia.
+✅ *IMPORTANTE:* Deja que las costras caigan solas, NO las arranques.
+✅ Usa gafas de sol oscuras para protección UV.
+✅ Duerme con la cabeza elevada para reducir la inflamación.
+🚫 *NO aplicar maquillaje ni cremas hasta que las costras caigan.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    },
+    "Tratamiento Pieles Acneicas": {
+        "desc": "Protocolo de control sebáceo y desinfección para reducir lesiones activas de acné y prevenir cicatrices.",
+        "riesgos": "Resequedad, descamación leve y fotosensibilidad por activos bactericidas.",
+        "cuidados_wa": """🧼 *PROTOCOLO CONTROL ACNÉ:*
+✅ Lava tu rostro con el limpiador indicado mañana y noche.
+✅ *NO manipules las lesiones:* puedes causar manchas o cicatrices.
+✅ Cambia tu toalla de rostro diariamente (o usa toallas de papel).
+✅ Usa hidratante tipo Gel o 'Oil-Free'.
+🚫 *EVITA el sol directo y el calor extremo.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    },
+    "Plasma Rico en Plaquetas (PRP)": {
+        "desc": "Bioestimulación mediante factores de crecimiento autólogos para mejorar la calidad y tensión de la piel.",
+        "riesgos": "Pequeños hematomas en puntos de inyección e inflamación local leve.",
+        "cuidados_wa": """💉 *POST-PLASMA (PRP):*
+✅ No toques ni masajees las zonas de inyección hoy.
+✅ Evita el ejercicio físico y el sudor por 24 horas.
+✅ No apliques maquillaje ni cremas pesadas el día de hoy.
+✅ Si sientes inflamación, aplica compresas frías con suavidad.
+🚫 *EVITA el consumo de alcohol y tabaco hoy.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    },
+    "Drenaje Linfático Facial": {
+        "desc": "Masaje rítmico manual para estimular la eliminación de toxinas y reducir el edema facial.",
+        "riesgos": "Aumento de la diuresis (ganas de orinar) y relajación muscular.",
+        "cuidados_wa": """💆‍♀️ *POST-DRENAJE FACIAL:*
+✅ Bebe mucha agua para ayudar a eliminar las toxinas.
+✅ Evita el consumo excesivo de sal el día de hoy.
+✅ Mantén tu rostro fresco y evita productos pesados.
+✅ Descansa y permite que tu sistema linfático trabaje.
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
+    },
+    "Radiofrecuencia Facial": {
+        "desc": "Transferencia de energía electromagnética para generar calor dérmico y estimular la síntesis de colágeno.",
+        "riesgos": "Eritema leve que desaparece en pocas horas y sensación de calor interno.",
+        "cuidados_wa": """🔥 *POST-RADIOFRECUENCIA:*
+✅ Mantén tu piel profundamente hidratada.
+✅ No laves tu cara con agua muy caliente hoy.
+✅ Bebe abundante agua para favorecer la regeneración celular.
+✅ Usa protector solar FPS 50+ sin falta.
+🚫 *EVITA saunas o baños de vapor hoy.*
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
     },
     "Masajes Reductivos": {
         "desc": "Técnicas manuales y de maderoterapia para remover adiposidad localizada y mejorar el contorno corporal.",
         "riesgos": "Posibles hematomas leves, sensibilidad muscular en la zona tratada y aumento de la diuresis.",
-        "wa": "⏳ *RESULTADOS DE TU SESIÓN CORPORAL:*\n✅ Bebe al menos 2 litros de agua para eliminar toxinas.\n✅ Mantén una alimentación baja en grasas y harinas hoy.\n✅ Realiza 30 min de actividad física suave para activar el drenaje.\n✅ Si hay hematomas, aplicar gel de árnica.\n✅ Sé constante con tus sesiones para ver cambios reales."
+        "cuidados_wa": """⏳ *RESULTADOS DE TU SESIÓN CORPORAL:*
+✅ Bebe al menos 2 litros de agua para eliminar toxinas.
+✅ Mantén una alimentación baja en grasas y harinas hoy.
+✅ Realiza 30 min de actividad física suave para activar el drenaje.
+✅ Si hay hematomas, aplicar gel de árnica.
+✅ Sé constante con tus sesiones para ver cambios reales.
+
+💬 *Cualquier duda o consulta, puedes escribir directamente a tu Cosmetólogo/Cosmiatra.*"""
     }
 }
 
@@ -166,4 +255,5 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
