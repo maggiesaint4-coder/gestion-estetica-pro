@@ -142,63 +142,70 @@ def generar_pdf(datos, logo_file):
     pdf = ConsentimientoLegal()
     pdf.add_page()
     
-    # Manejo de logo temporal
+    # 1. Header (Logo y Nombre SPA)
     tmp_logo = "logo_temp.png"
     if logo_file:
         with open(tmp_logo, "wb") as f: f.write(logo_file.getbuffer())
-
     pdf.header_logo(tmp_logo if logo_file else None, datos['estetica'])
     
-    # Título Profesional [cite: 2]
-    pdf.set_font('Arial', 'B', 14)
+    # 2. Título del Consentimiento (Igual a tus ejemplos)
+    pdf.set_font('Arial', 'B', 12)
     pdf.cell(0, 10, f"CONSENTIMIENTO INFORMADO PARA {datos['servicio'].upper()}", 0, 1, 'C')
     pdf.ln(5)
 
-    # Bloque de Información General [cite: 4, 5]
+    # 3. Datos Paciente y Fecha
     pdf.set_font('Arial', 'B', 10)
-    pdf.cell(0, 8, f"Paciente: {datos['paciente']}   |   Identificación: {datos['dni']}   |   Fecha: {datetime.date.today()}", 1, 1, 'L')
+    pdf.cell(0, 8, f"Paciente: {datos['paciente']}   |   Fecha: {datetime.date.today()}", 0, 1, 'L')
     pdf.ln(5)
 
-    # Cláusulas de Compromiso y Aceptación (Texto más técnico) [cite: 9, 11, 17, 18]
+    # 4. Información Técnica (Descripción y Riesgos)
+    pdf.set_font('Arial', 'B', 11)
+    pdf.cell(0, 8, "Información", 0, 1, 'L')
+    pdf.set_font('Arial', '', 10)
+    pdf.multi_cell(0, 5, datos['desc'])
+    pdf.ln(2)
     pdf.set_font('Arial', 'B', 10)
-    pdf.cell(0, 6, "DECLARACIONES Y COMPROMISOS:", 0, 1)
-    pdf.set_font('Arial', '', 9)
-    
-    declaraciones = [
-        f"1. Acepto que el procedimiento de {datos['servicio']} sea aplicado siguiendo los protocolos técnicos de seguridad.",
-        "2. Entiendo que existen riesgos asociados, incluyendo irritación, malestar o reacciones alérgicas.",
-        "3. Me comprometo a contactar al técnico y consultar a un médico por mi cuenta si experimento problemas graves.",
-        "4. He comunicado todas mis condiciones médicas conocidas y es mi responsabilidad mantener al profesional informado.",
-        "5. Autorizo el control fotográfico pre y post tratamiento con fines de valoración científica y seguimiento evolutivo."
-    ]
-    
-    for item in declaraciones:
-        pdf.multi_cell(0, 5, item)
+    pdf.cell(0, 8, "Riesgos y Efectos Secundarios:", 0, 1, 'L')
+    pdf.set_font('Arial', '', 10)
+    pdf.multi_cell(0, 5, datos['riesgos'])
+    pdf.ln(5)
+
+    # 5. Cláusulas Específicas de Compromiso
+    pdf.set_font('Arial', 'B', 10)
+    pdf.cell(0, 8, "Estoy de acuerdo con lo siguiente:", 0, 1, 'L')
+    pdf.set_font('Arial', '', 10)
+    clausulas_servicio = SERVICIOS[datos['servicio']].get('clausulas', [])
+    for c in clausulas_servicio:
+        pdf.multi_cell(0, 5, f"- {c}")
         pdf.ln(1)
 
-    # Detalles Específicos del Servicio
-    pdf.ln(2)
-    pdf.set_font('Arial', 'B', 10); pdf.cell(0, 6, "DESCRIPCIÓN TÉCNICA:", 0, 1)
-    pdf.set_font('Arial', '', 9); pdf.multi_cell(0, 5, datos['desc'])
-    
-    pdf.ln(2)
-    pdf.set_font('Arial', 'B', 10); pdf.cell(0, 6, "RIESGOS INFORMADOS:", 0, 1)
-    pdf.set_font('Arial', '', 9); pdf.multi_cell(0, 5, datos['riesgos'])
-
-    # Advertencia Final [cite: 23]
+    # 6. CIERRE LEGAL (TEXTO EXACTO DE TUS ARCHIVOS)
     pdf.ln(5)
-    pdf.set_font('Arial', 'B', 9)
-    pdf.set_text_color(200, 0, 0) # Color rojo para advertencia
-    pdf.multi_cell(0, 5, "ES IMPORTANTE QUE LEA CUIDADOSAMENTE ESTA INFORMACIÓN Y HAYA ACLARADO TODAS SUS DUDAS ANTES DE FIRMAR.")
-    pdf.set_text_color(0, 0, 0)
+    textos_cierre = [
+        "He comprendido las explicaciones que se me han facilitado en un lenguaje claro y sencillo, y el profesional que me ha atendido me ha permitido realizar todas las observaciones y me ha aclarado todas las dudas que le he planteado.",
+        "Por ello manifiesto mi conformidad con la información recibida y comprendo el alcance y los riesgos del procedimiento.",
+        "Como el profesional que realiza el procedimiento debe estar al tanto de cualquier enfermedad que tenga, he comunicado todas las enfermedades medicas conocidas, y es mi responsabilidad mantenerlo informado sobre el estado de mi salud física.",
+        "También se me ha informado debidamente de otros procedimientos alternativos.",
+        "Accedo y autorizo a seguir un control fotográfico pre y post tratamientos u otros materiales audiovisuales y gráficos y con la sola finalidad del control evolutivo de mi tratamiento y valoración científica.",
+        "Considerando que he sido suficientemente informado/a y aclaradas mis posibles dudas sobre el procedimiento y posibles resultados."
+    ]
+    
+    for t in textos_cierre:
+        pdf.multi_cell(0, 5, t)
+        pdf.ln(2)
 
-    # Firmas [cite: 24, 25]
+    # 7. ADVERTENCIA FINAL (EN MAYÚSCULAS)
+    pdf.ln(5)
+    pdf.set_font('Arial', 'B', 10)
+    pdf.multi_cell(0, 5, "ES IMPORTANTE QUE LEA CUIDADOSAMENTE LA INFORMACION Y HAYAN SIDO RESPONDIDAS TODAS SUS PREGUNTAS ANTES DE QUE FIRME EL CONSENTIMIENTO.")
+
+    # 8. Espacio para Firmas
     pdf.ln(20)
     pdf.cell(90, 10, "__________________________", 0, 0, 'C')
     pdf.cell(90, 10, "__________________________", 0, 1, 'C')
     pdf.set_font('Arial', 'B', 9)
-    pdf.cell(90, 5, "Firma del Paciente", 0, 0, 'C')
-    pdf.cell(90, 5, "Firma del Responsable / Técnico", 0, 1, 'C')
+    pdf.cell(90, 5, "Nombre y Firma de la paciente y fecha", 0, 0, 'C')
+    pdf.cell(90, 5, f"Nombre y firma de responsable", 0, 1, 'C')
 
     if logo_file and os.path.exists(tmp_logo): os.remove(tmp_logo)
     return pdf.output(dest='S').encode('latin-1', 'ignore')
@@ -294,6 +301,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
