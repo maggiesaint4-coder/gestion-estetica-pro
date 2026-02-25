@@ -244,16 +244,22 @@ else:
 
     with tab2:
         st.subheader("Envío de Cuidados Posteriores")
-        texto_wa = f"TE ACABAS DE HACER UN PROTOCOLO DE *{servicio_p.upper()}* 🧖‍♀️\n\n{SERVICIOS[servicio_p]['wa']}"
+        
+        # CAMBIO CLAVE: Usamos 'cuidados_wa' en lugar de 'wa'
+        # Usamos .get() para evitar que la app se caiga si falta algún dato
+        detalles_cuidados = SERVICIOS[servicio_p].get('cuidados_wa', 'Consulte con su profesional.')
+        
+        texto_wa = f"TE ACABAS DE HACER UN PROTOCOLO DE *{servicio_p.upper()}* 🧖‍♀️\n\n{detalles_cuidados}"
+        
         st.text_area("Texto para copiar:", value=texto_wa, height=300)
         
         url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
-
         st.link_button("🟢 Compartir por WhatsApp", url_final)
 
 with st.sidebar:
     st.divider()
     st.markdown("### 💬 ¿Necesitas ayuda o más créditos?")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
