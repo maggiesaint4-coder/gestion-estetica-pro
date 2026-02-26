@@ -302,6 +302,56 @@ with st.sidebar:
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
 
+from streamlit_gsheets import GSheetsConnection
+
+# Conexión con la base de datos (Google Sheets)
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+def verificar_y_actualizar_usos(mi_centro):
+    # 1. Leer los datos actuales de la nube
+    df = conn.read(ttl=0) # ttl=0 para que no use caché y lea en tiempo real
+    
+    # Buscamos si el centro ya existe en nuestra lista
+    if mi_centro in df["identificador"].values:
+        usos_actuales = df.loc[df["identificador"] == mi_centro, "usos"].values[0]
+    else:
+        # Si es nuevo, lo registramos con 0 usos
+        usos_actuales = 0
+        new_row = pd.DataFrame([{"identificador": mi_centro, "usos": 0}])
+        df = pd.concat([df, new_row], ignore_index=True)
+
+    # 2. Verificar límite
+    if usos_actuales >= 5:
+        return False, usos_actuales
+    
+    # 3. Si genera el PDF, sumamos 1 uso en la nube
+    usos_actuales += 1
+    df.loc[df["identificador"] == mi_centro, "usos"] = usos_actuales
+    conn.update(data=df) # Guardamos en el Excel de Google
+    
+    return True, usos_actuales
+
+# --- EN TU INTERFAZ ---
+with st.sidebar:
+    st.header("Configuración")
+    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética")
+    
+    # Consultamos a la nube cuántos usos tiene este nombre específicamente
+    df_cloud = conn.read(ttl=0)
+    if mi_centro in df_cloud["identificador"].values:
+        usos_nube = df_cloud.loc[df_cloud["identificador"] == mi_centro, "usos"].values[0]
+    else:
+        usos_nube = 0
+
+    if not st.session_state.get("es_pro", False):
+        st.write(f"📊 Usos registrados: **{usos_nube} / 5**")
+        
+        if usos_nube >= 5:
+            st.error("⚠️ Límite alcanzado para este centro.")
+            # Aquí pones tus botones de pago
+            st.stop()
+
+
 
 
 
