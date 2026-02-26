@@ -301,7 +301,7 @@ with tab1:
             pdf_bytes = generar_pdf(data_pdf, mi_logo)
             st.success("✅ Listo")
             st.download_button("⬇️ DESCARGAR", data=pdf_bytes, file_name="Ficha.pdf")
-                )
+                
             except Exception as e:
                 st.error(f"Error al generar PDF: {e}")
         else: 
@@ -320,6 +320,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
