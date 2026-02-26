@@ -243,7 +243,7 @@ with st.sidebar:
 
 if not st.session_state["es_pro"]:
     # --- ESTO ES LO QUE VEN SI NO HAN PAGADO ---
-    st.title("🚀 Gestión Estética Profesional")
+    st.title("Gestión Estética Profesional")
     st.info("Bienvenido. Para comenzar a generar tus consentimientos legales y recomendaciones, necesitas una suscripción activa.")
     
     # Columnas para los botones de pago grandes y visibles
@@ -317,6 +317,7 @@ with tab2:
     
     url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
     st.link_button("🟢 Compartir por WhatsApp", url_final)
+
 
 
 
