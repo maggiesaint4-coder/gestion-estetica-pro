@@ -3,6 +3,8 @@ from fpdf import FPDF
 import datetime
 import urllib.parse
 import os
+import pandas as pd
+from streamlit_gsheets import GSheetsConnection
 
 # --- 1. SEGURIDAD Y LLAVE MAESTRA ---
 CLAVES_PRO = st.secrets["claves_autorizadas"]
@@ -126,6 +128,21 @@ SERVICIOS = {
         "cuidados_wa": "\n✅ Bebe al menos 2 litros de agua hoy para eliminar toxinas.\n✅ Evita el consumo de sal en exceso para no retener líquidos.\n✅ Notarás tu rostro más deshinchado y luminoso en las próximas horas.\n🧖‍♀️ ¡Relájate y disfruta del efecto detox!"
     }
 }
+# --- CONEXIÓN A GOOGLE SHEETS ---
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+def registrar_uso_nube(centro):
+    try:
+        df = conn.read(ttl=0)
+        if centro in df["identificador"].values:
+            usos = int(df.loc[df["identificador"] == centro, "usos"].values[0])
+            df.loc[df["identificador"] == centro, "usos"] = usos + 1
+        else:
+            new_row = pd.DataFrame([{"identificador": centro, "usos": 1}])
+            df = pd.concat([df, new_row], ignore_index=True)
+        conn.update(data=df)
+        return True
+    except: return False
 
 # --- 4. CLASE PDF LEGAL ---
 class ConsentimientoLegal(FPDF):
@@ -213,13 +230,26 @@ def generar_pdf(datos, logo_file):
 # --- 5. INTERFAZ DE USUARIO (SIDEBAR) ---
 with st.sidebar:
     st.header("Configuración")
-    mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'])
-    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética")
+    mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'], key="logo_u")
+    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética", key="centro_i")
     
+    # Consultar usos reales en la nube para este nombre de estética
+    try:
+        df_cloud = conn.read(ttl=0)
+        usos_registrados = int(df_cloud.loc[df_cloud["identificador"] == mi_centro, "usos"].values[0]) if mi_centro in df_cloud["identificador"].values else 0
+    except:
+        usos_registrados = 0
+
     st.divider()
     if not st.session_state["es_pro"]:
-        st.write(f"📊 Usos gratuitos: **{st.session_state['usos']} / 5**")
-        llave = st.text_input("Ingresar Llave Maestra", type="password")
+        st.write(f"📊 Usos registrados: **{usos_registrados} / 5**")
+        
+        # Bloqueo si llega a 5
+        if usos_registrados >= 5:
+            st.error("⚠️ Límite alcanzado para este centro.")
+            st.stop() # Detiene la ejecución aquí
+            
+        llave = st.text_input("Ingresar Llave Maestra", type="password", key="llave_i")
         if st.button("Activar Versión Full"):
             if llave in CLAVES_PRO:
                 st.session_state["es_pro"] = True
@@ -265,6 +295,11 @@ with tab1:
     # LÓGICA DE GENERACIÓN MEJORADA
     if st.button("🚀 PREPARAR DOCUMENTO"):
         if nombre_p and dni_p:
+            # 1. Registrar uso en Google Sheets si no es PRO
+            if not st.session_state["es_pro"]:
+                registrar_uso_nube(mi_centro)
+            
+            # 2. Generar el PDF (el resto de tu código igual)
             data_pdf = {
                 'paciente': nombre_p, 'dni': dni_p, 'servicio': servicio_p,
                 'estetica': mi_centro, 'desc': desc_ed, 'riesgos': riesgos_ed
@@ -301,6 +336,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
