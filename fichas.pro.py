@@ -6,7 +6,11 @@ import os
 
 # --- 1. SEGURIDAD Y LLAVE MAESTRA ---
 try:
+    # Intenta leer las llaves reales desde el panel de Secrets de Streamlit Cloud
     CLAVES_PRO = st.secrets["claves_autorizadas"]
+except:
+
+    CLAVES_PRO = [] 
 
 if "es_pro" not in st.session_state:
     st.session_state["es_pro"] = False
