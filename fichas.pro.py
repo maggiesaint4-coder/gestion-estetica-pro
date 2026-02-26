@@ -302,10 +302,6 @@ with tab1:
             st.success("✅ Listo")
             st.download_button("⬇️ DESCARGAR", data=pdf_bytes, file_name="Ficha.pdf")
                 
-            except Exception as e:
-                st.error(f"Error al generar PDF: {e}")
-        else: 
-            st.warning("⚠️ Completa el nombre y DNI del paciente.")
 
 with tab2:
     st.subheader("Envío de Cuidados Posteriores")
@@ -320,6 +316,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
