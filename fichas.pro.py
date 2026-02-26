@@ -5,10 +5,9 @@ import urllib.parse
 import os
 
 # --- 1. SEGURIDAD Y LLAVE MAESTRA ---
-CLAVES_PRO = st.secrets["claves_autorizadas"]
+try:
+    CLAVES_PRO = st.secrets["claves_autorizadas"]
 
-if "usos" not in st.session_state:
-    st.session_state["usos"] = 0
 if "es_pro" not in st.session_state:
     st.session_state["es_pro"] = False
 
@@ -213,39 +212,57 @@ def generar_pdf(datos, logo_file):
 # --- 5. INTERFAZ DE USUARIO (SIDEBAR) ---
 with st.sidebar:
     st.header("Configuración")
-    mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'])
-    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética")
+    mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'], key="logo_u")
+    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética", key="centro_i")
     
     st.divider()
+    
+    # Espacio para la llave en el sidebar por si ya la tienen
     if not st.session_state["es_pro"]:
-        st.write(f"📊 Usos gratuitos: **{st.session_state['usos']} / 5**")
-        llave = st.text_input("Ingresar Llave Maestra", type="password")
+        st.subheader("🔑 Activar Licencia")
+        llave = st.text_input("Ingresar Llave Maestra", type="password", key="llave_sidebar")
         if st.button("Activar Versión Full"):
             if llave in CLAVES_PRO:
                 st.session_state["es_pro"] = True
-                st.success("¡Versión Pro Activada!")
+                st.success("¡Acceso Total!")
                 st.rerun()
-            else: st.error("Código incorrecto")
+            else:
+                st.error("Código incorrecto")
     else:
         st.success("💎 CLIENTE PREMIUM")
-
-# --- 6. LÓGICA DE BLOQUEO POR USOS ---
-if st.session_state["usos"] >= 5 and not st.session_state["es_pro"]:
-    st.error("⚠️ Has agotado tus 5 fichas de prueba.")
-    st.subheader("🚀 Pasa al Nivel Premium")
-    st.write("Para obtener tu **Acceso Ilimitado**, sigue estos pasos:")
     
-    c1, c2 = st.columns(2)
-    with c1:
-        st.link_button("💳 Pagar en PayPal", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ")
-    with c2:
-        msg = urllib.parse.quote("Hola! Ya pagué. Envío comprobante para mi llave.")
-        st.link_button("📲 Avisar por WhatsApp", f"https://wa.me/584143451811?text={msg}")
-    
-    st.stop() 
+    st.divider()
+    st.markdown("### 💬 Soporte")
+    st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
 
-# --- 7. CUERPO PRINCIPAL ---
-st.title("Gestión Estética Profesional")
+# --- 6. PANTALLA PRINCIPAL: BLOQUEO O HERRAMIENTAS ---
+
+if not st.session_state["es_pro"]:
+    # --- ESTO ES LO QUE VEN SI NO HAN PAGADO ---
+    st.title("🚀 Gestión Estética Profesional")
+    st.info("Bienvenido. Para comenzar a generar tus consentimientos legales y recomendaciones, necesitas una suscripción activa.")
+    
+    # Columnas para los botones de pago grandes y visibles
+    col_pago1, col_pago2 = st.columns(2)
+    
+    with col_pago1:
+        st.markdown("### 💳 Opción 1: PayPal")
+        st.write("Obtén acceso inmediato procesando tu pago de forma segura.")
+        st.link_button("🔥 PAGAR Y OBTENER LLAVE", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ", use_container_width=True)
+        
+    with col_pago2:
+        st.markdown("### 📲 Opción 2: WhatsApp")
+        st.write("Si prefieres pago móvil, transferencia o tienes dudas, escríbenos.")
+        msg_wa = urllib.parse.quote("Hola! Deseo adquirir mi llave maestra para la App de Gestión Estética.")
+        st.link_button("💬 SOLICITAR POR WHATSAPP", f"https://wa.me/584143451811?text={msg_wa}", use_container_width=True)
+    
+
+    
+    st.stop() # Aquí se detiene todo si no es PRO
+
+# --- 7. CUERPO PRINCIPAL (SOLO SE VE SI ES PRO) ---
+st.title("Panel de Control Profesional")
+st.write(f"Bienvenido/a, **{mi_centro}**")
 
 tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
 
@@ -296,21 +313,6 @@ with tab2:
     
     url_final = f"https://wa.me/?text={urllib.parse.quote(texto_wa)}"
     st.link_button("🟢 Compartir por WhatsApp", url_final)
-
-with st.sidebar:
-    st.divider()
-    st.markdown("### 💬 Soporte")
-    st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
-
-
-
-
-
-
-
-
-
-
 
 
 
