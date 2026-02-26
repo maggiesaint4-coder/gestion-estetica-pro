@@ -229,21 +229,54 @@ with st.sidebar:
     else:
         st.success("💎 CLIENTE PREMIUM")
 
-# --- 6. LÓGICA DE BLOQUEO POR USOS ---
-if st.session_state["usos"] >= 5 and not st.session_state["es_pro"]:
-    st.error("⚠️ Has agotado tus 5 fichas de prueba.")
-    st.subheader("🚀 Pasa al Nivel Premium")
-    st.write("Para obtener tu **Acceso Ilimitado**, sigue estos pasos:")
-    
-    c1, c2 = st.columns(2)
-    with c1:
-        st.link_button("💳 Pagar en PayPal", "https://www.paypal.com/ncp/payment/RBUNNAVUXNDRQ")
-    with c2:
-        msg = urllib.parse.quote("Hola! Ya pagué. Envío comprobante para mi llave.")
-        st.link_button("📲 Avisar por WhatsApp", f"https://wa.me/584143451811?text={msg}")
-    
-    st.stop() 
+from streamlit_gsheets import GSheetsConnection
 
+# Conexión con la base de datos (Google Sheets)
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+def verificar_y_actualizar_usos(mi_centro):
+    # 1. Leer los datos actuales de la nube
+    df = conn.read(ttl=0) # ttl=0 para que no use caché y lea en tiempo real
+    
+    # Buscamos si el centro ya existe en nuestra lista
+    if mi_centro in df["identificador"].values:
+        usos_actuales = df.loc[df["identificador"] == mi_centro, "usos"].values[0]
+    else:
+        # Si es nuevo, lo registramos con 0 usos
+        usos_actuales = 0
+        new_row = pd.DataFrame([{"identificador": mi_centro, "usos": 0}])
+        df = pd.concat([df, new_row], ignore_index=True)
+
+    # 2. Verificar límite
+    if usos_actuales >= 5:
+        return False, usos_actuales
+    
+    # 3. Si genera el PDF, sumamos 1 uso en la nube
+    usos_actuales += 1
+    df.loc[df["identificador"] == mi_centro, "usos"] = usos_actuales
+    conn.update(data=df) # Guardamos en el Excel de Google
+    
+    return True, usos_actuales
+
+# --- EN TU INTERFAZ ---
+with st.sidebar:
+    st.header("Configuración")
+    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética")
+    
+    # Consultamos a la nube cuántos usos tiene este nombre específicamente
+    df_cloud = conn.read(ttl=0)
+    if mi_centro in df_cloud["identificador"].values:
+        usos_nube = df_cloud.loc[df_cloud["identificador"] == mi_centro, "usos"].values[0]
+    else:
+        usos_nube = 0
+
+    if not st.session_state.get("es_pro", False):
+        st.write(f"📊 Usos registrados: **{usos_nube} / 5**")
+        
+        if usos_nube >= 5:
+            st.error("⚠️ Límite alcanzado para este centro.")
+            # Aquí pones tus botones de pago
+            st.stop()
 # --- 7. CUERPO PRINCIPAL ---
 st.title("Gestión Estética Profesional")
 
@@ -302,41 +335,6 @@ with st.sidebar:
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
 
-with st.sidebar:
-    st.header("Configuración")
-    
-    mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética", key="centro_config")
-    
-    mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'])
-    
-    # 1. Leer la base de datos de Google para ver cuántos usos lleva este nombre
-    try:
-        df_cloud = conn.read(ttl=0)
-        if mi_centro in df_cloud["identificador"].values:
-            usos_nube = int(df_cloud.loc[df_cloud["identificador"] == mi_centro, "usos"].values[0])
-        else:
-            usos_nube = 0
-    except Exception:
-        usos_nube = 0 # Por si la tabla está vacía al principio
-
-    # 2. Lógica de visualización de créditos
-    if not st.session_state.get("es_pro", False):
-        st.write(f"📊 Usos registrados: **{usos_nube} / 5**")
-        
-        if usos_nube >= 5:
-            st.error("⚠️ Límite alcanzado.")
-            # Aquí van tus botones de pago
-            st.stop() # Bloquea el resto de la app
-        
-        # Campo para la llave maestra
-        llave = st.text_input("Ingresar Llave Maestra", type="password")
-        if st.button("Activar Versión Full"):
-            if llave in CLAVES_PRO:
-                st.session_state["es_pro"] = True
-                st.success("¡Versión Pro Activada!")
-                st.rerun()
-    else:
-        st.success("💎 CLIENTE PREMIUM")
 
 
 
