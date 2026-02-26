@@ -128,21 +128,29 @@ SERVICIOS = {
         "cuidados_wa": "\n✅ Bebe al menos 2 litros de agua hoy para eliminar toxinas.\n✅ Evita el consumo de sal en exceso para no retener líquidos.\n✅ Notarás tu rostro más deshinchado y luminoso en las próximas horas.\n🧖‍♀️ ¡Relájate y disfruta del efecto detox!"
     }
 }
-# --- CONEXIÓN A GOOGLE SHEETS ---
+# --- 4. CONEXIÓN Y FUNCIÓN DE NUBE ---
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 def registrar_uso_nube(centro):
     try:
+        # 1. Leer datos actuales (ttl=0 para forzar lectura fresca)
         df = conn.read(ttl=0)
+        
         if centro in df["identificador"].values:
-            usos = int(df.loc[df["identificador"] == centro, "usos"].values[0])
-            df.loc[df["identificador"] == centro, "usos"] = usos + 1
+            # Si el centro existe, sumamos 1
+            usos_actuales = int(df.loc[df["identificador"] == centro, "usos"].values[0])
+            df.loc[df["identificador"] == centro, "usos"] = usos_actuales + 1
         else:
-            new_row = pd.DataFrame([{"identificador": centro, "usos": 1}])
-            df = pd.concat([df, new_row], ignore_index=True)
+            # Si es nuevo, lo creamos con 1 uso
+            nuevo_registro = pd.DataFrame([{"identificador": centro, "usos": 1}])
+            df = pd.concat([df, nuevo_registro], ignore_index=True)
+        
+        # 2. Subir de vuelta al Sheets
         conn.update(data=df)
         return True
-    except: return False
+    except Exception as e:
+        st.error(f"Error de conexión: {e}")
+        return False
 
 # --- 4. CLASE PDF LEGAL ---
 class ConsentimientoLegal(FPDF):
@@ -230,32 +238,29 @@ def generar_pdf(datos, logo_file):
 # --- 5. INTERFAZ DE USUARIO (SIDEBAR) ---
 with st.sidebar:
     st.header("Configuración")
-    mi_logo = st.file_uploader("Sube tu Logo Profesional", type=['png', 'jpg', 'jpeg'], key="logo_u")
+    mi_logo = st.file_uploader("Logo", type=['png', 'jpg'], key="logo_u")
     mi_centro = st.text_input("Nombre de tu Estética", "Mi Estética", key="centro_i")
     
-    # Consultar usos reales en la nube para este nombre de estética
+    # Obtener usos de la nube en tiempo real
     try:
-        df_cloud = conn.read(ttl=0)
-        usos_registrados = int(df_cloud.loc[df_cloud["identificador"] == mi_centro, "usos"].values[0]) if mi_centro in df_cloud["identificador"].values else 0
+        df_check = conn.read(ttl=0)
+        usos_nube = int(df_check.loc[df_check["identificador"] == mi_centro, "usos"].values[0]) if mi_centro in df_check["identificador"].values else 0
     except:
-        usos_registrados = 0
+        usos_nube = 0
 
     st.divider()
     if not st.session_state["es_pro"]:
-        st.write(f"📊 Usos registrados: **{usos_registrados} / 5**")
-        
-        # Bloqueo si llega a 5
-        if usos_registrados >= 5:
-            st.error("⚠️ Límite alcanzado para este centro.")
-            st.stop() # Detiene la ejecución aquí
+        st.write(f"📊 Usos registrados: **{usos_nube} / 5**")
+        if usos_nube >= 5:
+            st.error("⚠️ Límite alcanzado.")
+            st.markdown("[💳 Pagar en PayPal](https://www.paypal.com/...)")
+            st.stop()
             
-        llave = st.text_input("Ingresar Llave Maestra", type="password", key="llave_i")
-        if st.button("Activar Versión Full"):
+        llave = st.text_input("Llave Maestra", type="password")
+        if st.button("Activar PRO"):
             if llave in CLAVES_PRO:
                 st.session_state["es_pro"] = True
-                st.success("¡Versión Pro Activada!")
                 st.rerun()
-            else: st.error("Código incorrecto")
     else:
         st.success("💎 CLIENTE PREMIUM")
 
@@ -276,47 +281,26 @@ if st.session_state["usos"] >= 5 and not st.session_state["es_pro"]:
 
 # --- 7. CUERPO PRINCIPAL ---
 st.title("Gestión Estética Profesional")
-
-tab1, tab2 = st.tabs(["📋 Ficha de Consentimiento", "📲 Recomendaciones WhatsApp"])
+tab1, tab2 = st.tabs(["📋 Ficha", "📲 WhatsApp"])
 
 with tab1:
-    st.subheader("Generar Documento Legal")
-    col1, col2 = st.columns(2)
-    with col1:
-        nombre_p = st.text_input("Nombre del Paciente")
-        dni_p = st.text_input("DNI / Identificación")
-    with col2:
-        servicio_p = st.selectbox("Seleccione Tratamiento", list(SERVICIOS.keys()))
-    
-    st.divider()
-    desc_ed = st.text_area("Descripción Técnica:", value=SERVICIOS[servicio_p]["desc"])
-    riesgos_ed = st.text_area("Riesgos Informados:", value=SERVICIOS[servicio_p]["riesgos"])
+    nombre_p = st.text_input("Paciente")
+    dni_p = st.text_input("DNI")
+    servicio_p = st.selectbox("Tratamiento", list(SERVICIOS.keys()))
+    desc_ed = st.text_area("Descripción:", value=SERVICIOS[servicio_p]["desc"])
 
-    # LÓGICA DE GENERACIÓN MEJORADA
     if st.button("🚀 PREPARAR DOCUMENTO"):
         if nombre_p and dni_p:
-            # 1. Registrar uso en Google Sheets si no es PRO
+            # PASO CRÍTICO: Registrar en la nube ANTES de generar
             if not st.session_state["es_pro"]:
-                registrar_uso_nube(mi_centro)
+                exito = registrar_uso_nube(mi_centro)
+                if not exito:
+                    st.warning("⚠️ No se pudo sincronizar con la nube, pero generaremos el PDF.")
             
-            # 2. Generar el PDF (el resto de tu código igual)
-            data_pdf = {
-                'paciente': nombre_p, 'dni': dni_p, 'servicio': servicio_p,
-                'estetica': mi_centro, 'desc': desc_ed, 'riesgos': riesgos_ed
-            }
-            try:
-                pdf_bytes = generar_pdf(data_pdf, mi_logo)
-                
-                # Aumentar contador de uso solo si no es PRO
-                if not st.session_state["es_pro"]:
-                    st.session_state["usos"] += 1
-                
-                st.success(f"✅ Documento para {nombre_p} listo.")
-                st.download_button(
-                    label="⬇️ DESCARGAR PDF AHORA", 
-                    data=pdf_bytes, 
-                    file_name=f"Consentimiento_{nombre_p}.pdf",
-                    mime="application/pdf"
+            data_pdf = {'paciente': nombre_p, 'dni': dni_p, 'servicio': servicio_p, 'estetica': mi_centro, 'desc': desc_ed}
+            pdf_bytes = generar_pdf(data_pdf, mi_logo)
+            st.success("✅ Listo")
+            st.download_button("⬇️ DESCARGAR", data=pdf_bytes, file_name="Ficha.pdf")
                 )
             except Exception as e:
                 st.error(f"Error al generar PDF: {e}")
@@ -336,6 +320,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
