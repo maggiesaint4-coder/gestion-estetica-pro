@@ -43,7 +43,7 @@ SERVICIOS = {
             "Los materiales adhesivos pueden alojarse durante o después del procedimiento e irritar mis ojos.",
             "El incumplimiento de las instrucciones de cuidado posterior puede hacer que las extensiones se caigan."
         ],
-        "cuidados_wa": "\n\n✅ No mojarlas las primeras 24-48 horas.\n✅ Cepillarlas diariamente con el cepillo limpio.\n✅ Usar solo productos de limpieza base agua (sin aceites).\n✅ Dormir boca arriba para evitar fricción.\n🚫 No frotar los ojos ni arrancar las extensiones."
+        "cuidados_wa": "\n✅ No mojarlas las primeras 24-48 horas.\n✅ Cepillarlas diariamente con el cepillo limpio.\n✅ Usar solo productos de limpieza base agua (sin aceites).\n✅ Dormir boca arriba para evitar fricción.\n🚫 No frotar los ojos ni arrancar las extensiones."
     },
     "Limpieza Facial Profunda": {
         "desc": "Tratamiento que a través de agua y puntas de diamante realiza una limpieza profunda, eliminando células muertas, grasa y puntos negros acumulados. Disminuye el tamaño de los poros y mejora la textura áspera del rostro.",
@@ -53,7 +53,7 @@ SERVICIOS = {
             "Uso de SPF 30 cada 2 horas si se encuentra a la intemperie.",
             "No usar jabones ásperos, exfoliantes o maquillaje pesado inmediatamente."
         ],
-        "cuidados_wa": " \n\n✅ Mantén tu piel muy hidratada.\n✅ Usa protector solar cada 3 horas.\n🚫 No uses exfoliantes ni ácidos por 7 días.\n🚫 Evita el sol directo, piscinas y saunas por 48h.\n🧼 Lava tu cara con un jabón neutro suave."
+        "cuidados_wa": " \n✅ Mantén tu piel muy hidratada.\n✅ Usa protector solar cada 3 horas.\n🚫 No uses exfoliantes ni ácidos por 7 días.\n🚫 Evita el sol directo, piscinas y saunas por 48h.\n🧼 Lava tu cara con un jabón neutro suave."
     },
     "Microneedling (Dermapen)": {
         "desc": "La micropunción es un procedimiento efectivo que va a facilitar la penetración de activos a las capas más profundas de la piel mediante micro-agujas que crean micro-orificios que actúan a modo de túneles.",
@@ -63,7 +63,7 @@ SERVICIOS = {
             "Trata daño por exposición solar, arrugas, flacidez y cicatrices de acné o estrías.",
             "Autorizo el control fotográfico pre y post tratamiento con finalidad de control evolutivo."
         ],
-        "cuidados_wa": "\n\n🚫 No apliques maquillaje durante las primeras 24 horas.\n🚫 Evita el sudor excesivo (ejercicio) y el sol directo por 3 días.\n✅ Aplica solo la crema reparadora o suero indicado.\n✅ Usa protector solar SPF 50+ de forma obligatoria."
+        "cuidados_wa": "\n🚫 No apliques maquillaje durante las primeras 24 horas.\n🚫 Evita el sudor excesivo (ejercicio) y el sol directo por 3 días.\n✅ Aplica solo la crema reparadora o suero indicado.\n✅ Usa protector solar SPF 50+ de forma obligatoria."
     },
     "Peeling Químico": {
         "desc": "La finalidad del peeling es promover la renovación celular y así obtener una piel más uniforme y brillante, ayudándonos a contraer poros, controlar lesiones de acné y aclarar manchas.",
@@ -73,7 +73,7 @@ SERVICIOS = {
             "Costras y escamas pueden aparecer y suelen caer tras el reposo.",
             "Riesgo de cambios en la textura de la piel, pérdida de sensibilidad o edema alrededor de los ojos."
         ],
-        "cuidados_wa": "\n\n🚫 *IMPORTANTE:* No arranques las pieles que se estén descamando.\n✅ Hidratación extrema con la crema recomendada.\n✅ Protector solar cada 2-3 horas sin excepción.\n🚫 Evita fuentes de calor intenso (cocina, vapor, sol)."
+        "cuidados_wa": "\n🚫 *IMPORTANTE:* No arranques las pieles que se estén descamando.\n✅ Hidratación extrema con la crema recomendada.\n✅ Protector solar cada 2-3 horas sin excepción.\n🚫 Evita fuentes de calor intenso (cocina, vapor, sol)."
     },
     "Plasma Rico en Plaquetas": {
         "desc": "Consiste en la aplicación de PRP local (intradérmica, subdérmica o tópica). Se realiza una extracción sanguínea previa que se centrifuga para separar el plasma con plaquetas.",
@@ -83,7 +83,7 @@ SERVICIOS = {
             "La aplicación minimiza el riesgo de contaminación e infección.",
             "Responsabilidad del paciente informar sobre su estado de salud física y enfermedades conocidas."
         ],
-        "cuidados_wa": "\n\n🚫 No laves tu cara ni apliques cremas hasta mañana.\n🚫 Evita el ejercicio y el sol directo por 24 horas.\n✅ Bebe abundante agua para mejorar los resultados.\n🚫 No tomes aspirinas o antiinflamatorios si no es necesario."
+        "cuidados_wa": "\n🚫 No laves tu cara ni apliques cremas hasta mañana.\n🚫 Evita el ejercicio y el sol directo por 24 horas.\n✅ Bebe abundante agua para mejorar los resultados.\n🚫 No tomes aspirinas o antiinflamatorios si no es necesario."
     },
     "Fibroblast en Párpados": {
         "desc": "Procedimiento de retracción cutánea mediante arco de plasma. Genera micro-carbonizaciones controladas para tensar el tejido y tratar la flacidez sin cirugía.",
@@ -93,7 +93,7 @@ SERVICIOS = {
             "Mantener la zona seca y sin maquillaje hasta la caída total de las costras.",
             "El resultado final se aprecia completamente a las 8-12 semanas."
         ],
-        "cuidados_wa": "\n\n🚫 No mojes la zona tratada las primeras 48 horas.\n✅ Deja que las costras caigan solas (no las toques).\n✅ Usa gafas de sol oscuras al salir.\n✅ Aplica el antiséptico indicado con un hisopo limpio."
+        "cuidados_wa": "\n🚫 No mojes la zona tratada las primeras 48 horas.\n✅ Deja que las costras caigan solas (no las toques).\n✅ Usa gafas de sol oscuras al salir.\n✅ Aplica el antiséptico indicado con un hisopo limpio."
     },
     "Tratamiento Pieles Acneicas": {
         "desc": "Protocolo para controlar lesiones de acné, promover la renovación celular y controlar la proliferación bacteriana en la piel.",
@@ -103,7 +103,7 @@ SERVICIOS = {
             "Los activos pueden causar escozor tolerable durante la aplicación.",
             "Es responsabilidad del paciente informar sobre su salud y hábitos de higiene."
         ],
-        "cuidados_wa": "\n\n🚫 No toques ni pellizques los granitos.\n✅ Cambia la funda de tu almohada hoy mismo.\n✅ Lava tu rostro solo con el dermolimpiador indicado.\n✅ Usa protector solar 'Oil-Free' o toque seco."
+        "cuidados_wa": "\n🚫 No toques ni pellizques los granitos.\n✅ Cambia la funda de tu almohada hoy mismo.\n✅ Lava tu rostro solo con el dermolimpiador indicado.\n✅ Usa protector solar 'Oil-Free' o toque seco."
     },
     "Radiofrecuencia Facial": {
         "desc": "Uso de ondas electromagnéticas para calentar la dermis profunda y estimular la producción de nuevo colágeno y elastina.",
@@ -113,7 +113,7 @@ SERVICIOS = {
             "Los resultados son acumulativos y requieren constancia en las sesiones.",
             "La sensación de calor es necesaria para la eficacia del tensado térmico."
         ],
-        "cuidados_wa": "\n\n✅ Bebe agua para mantener la hidratación térmica de la piel.\n✅ Aplica una mascarilla hidratante fría si sientes mucho calor.\n✅ Puedes retomar tu rutina de maquillaje inmediatamente.\n✅ Usa protector solar como de costumbre."
+        "cuidados_wa": "\n✅ Bebe agua para mantener la hidratación térmica de la piel.\n✅ Aplica una mascarilla hidratante fría si sientes mucho calor.\n✅ Puedes retomar tu rutina de maquillaje inmediatamente.\n✅ Usa protector solar como de costumbre."
     },
     "Drenaje Linfático Facial": {
         "desc": "Masaje rítmico manual para favorecer la eliminación de líquidos, edemas y toxinas acumuladas en el rostro.",
@@ -123,7 +123,7 @@ SERVICIOS = {
             "Recomendable beber agua para facilitar la depuración del organismo.",
             "No tener procesos infecciosos o febriles activos en el momento del masaje."
         ],
-        "cuidados_wa": "\n\n✅ Bebe al menos 2 litros de agua hoy para eliminar toxinas.\n✅ Evita el consumo de sal en exceso para no retener líquidos.\n✅ Notarás tu rostro más deshinchado y luminoso en las próximas horas.\n🧖‍♀️ ¡Relájate y disfruta del efecto detox!"
+        "cuidados_wa": "\n✅ Bebe al menos 2 litros de agua hoy para eliminar toxinas.\n✅ Evita el consumo de sal en exceso para no retener líquidos.\n✅ Notarás tu rostro más deshinchado y luminoso en las próximas horas.\n🧖‍♀️ ¡Relájate y disfruta del efecto detox!"
     }
 }
 
@@ -301,6 +301,7 @@ with st.sidebar:
     st.divider()
     st.markdown("### 💬 Soporte")
     st.link_button("Contactar a Soporte", "https://wa.me/+584143451811")
+
 
 
 
